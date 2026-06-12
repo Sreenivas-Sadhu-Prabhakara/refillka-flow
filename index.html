@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>refillka — Product Flow · Field Notes</title>
+<meta name="description" content="Screen-by-screen walkthrough of the refillka platform: public site, admin console, store owner app, and operations app — the route from sachet to refill." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💧</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Sora:wght@300;400;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <span class="wordmark"><span class="re">re</span><span class="fill">fill</span><span class="ka">ka</span></span>
+  <nav>
+    <a href="#map">Map</a>
+    <a href="#public">Public site</a>
+    <a href="#admin">Admin</a>
+    <a href="#store">Store app</a>
+    <a href="#ops">Ops app</a>
+    <a href="#impact">Impact</a>
+  </nav>
+</header>
+
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+  <span class="watermark" style="top:-40px; right:-30px;">1B</span>
+  <span class="hero-kicker">Product flow · Field notes · v1</span>
+  <h1>The route from <em>sachet</em> to <em>refill</em>, screen by screen.</h1>
+  <p class="lede">
+    How the refillka platform works — the public website, the admin console, and the two
+    faces of one mobile app — annotated like a delivery route through Taguig.
+  </p>
+  <span class="hand-note">↓ follow the dashed line, six stops ↓</span>
+  <div class="stamp-row">
+    <span class="stamp blue">refillka.ph</span>
+    <span class="stamp red">Admin console</span>
+    <span class="stamp green">Store owner app</span>
+    <span class="stamp teal">Operations app</span>
+  </div>
+</section>
+
+<main class="route">
+
+  <!-- ============================ 00 · MAP ============================ -->
+  <section class="leg teal" id="map">
+    <span class="leg-stop">00</span>
+    <p class="leg-label">Stop 00 · Orientation</p>
+    <h2>One platform, <em>three doors.</em></h2>
+    <p class="intro">
+      Everything below is already built and running: three codebases, two API services, one
+      database. Every door opens onto the same live data — a refill logged in a sari-sari store
+      in Western Bicutan shows up in the CEO's dashboard seconds later.
+    </p>
+
+    <div class="map-grid reveal">
+      <div class="map-node blue">
+        <p class="tag">Web · everyone</p>
+        <h3>Public website</h3>
+        <p>The story, the 1 Billion Challenge, and three ways in — institutions, sari-sari
+        retailers, households.</p>
+      </div>
+      <div class="map-node red">
+        <p class="tag">Web · HQ &amp; city admins</p>
+        <h3>Admin console</h3>
+        <p>Daily ops, nationwide view, city drill-downs, channel management, and the UN SDG
+        impact report.</p>
+      </div>
+      <div class="map-node green">
+        <p class="tag">Mobile · iOS + Android</p>
+        <h3>One app, two facets</h3>
+        <p>Store owners log refills and request restocks; operations staff deliver, approve,
+        onboard, and resolve.</p>
+      </div>
+    </div>
+    <p class="map-spine reveal">all three talk to <b>core-api :4000</b> · reporting reads from <b>impact-api :4100</b> · one PostgreSQL source of truth</p>
+  </section>
+
+  <!-- ============================ 01 · PUBLIC ============================ -->
+  <section class="leg blue" id="public">
+    <span class="leg-stop">01</span>
+    <p class="leg-label">Stop 01 · The front door</p>
+    <h2>The public site makes the mission <em>impossible to miss.</em></h2>
+    <p class="intro">
+      <strong>refillka.ph</strong> has one job: turn visitors into participants. It leads with the
+      1 Billion Challenge, proves the network is real, and routes each audience to its channel.
+    </p>
+    <div class="persona-row">
+      <span class="persona">👤 <b>Anyone</b> · no login</span>
+      <span class="persona">🏢 Institutions</span>
+      <span class="persona">🏪 Sari-sari retailers</span>
+      <span class="persona">🏠 Households</span>
+    </div>
+
+    <div class="specimen reveal">
+      <div class="specimen-head">
+        <span class="step">1.1</span>
+        <h3>Homepage — the 1 Billion Challenge</h3>
+        <span class="hand-note">the hook</span>
+      </div>
+      <div class="specimen-grid">
+        <div class="frame-col">
+          <div class="browser">
+            <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">refillka.ph</span></div>
+            <div class="browser-body" style="display:flex; flex-direction:column; gap:10px;">
+              <div class="mk-banner blue" style="text-align:center; padding:22px 14px;">
+                <div class="mk-pill y" style="margin-bottom:8px;">THE 1 BILLION CHALLENGE · EVERY REFILL COUNTS</div>
+                <div class="mk-h" style="font-size:22px; color:#fff;">Refill today,<br /><em style="color:var(--sun);">save tomorrow.</em></div>
+                <div style="display:flex; gap:8px; justify-content:center; margin-top:12px;">
+                  <span class="mk-btn" style="padding:6px 14px;">Join the network</span>
+                  <span style="font-size:9px; color:rgba(255,255,255,0.7); align-self:center;">How it works →</span>
+                </div>
+              </div>
+              <div class="mk-card" style="padding:12px; text-align:center;">
+                <div style="font-size:10px; font-weight:700; color:var(--fill-red); margin-bottom:6px;">Prevent 1,000,000,000 single-use plastics — every year — by 2030</div>
+                <div class="mk-progress"><i style="width:2%;"></i></div>
+                <div class="mk-row" style="font-size:8px; color:var(--ink-faint); margin-top:4px;"><span>4,275 avoided to date</span><span>Goal: 1B / year</span></div>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+                <div class="mk-card" style="padding:10px; text-align:center;"><div class="mk-h" style="color:var(--ka-green);">2,200+</div><div class="mk-sub">stores in the network</div></div>
+                <div class="mk-card" style="padding:10px; text-align:center;"><div class="mk-h" style="color:var(--ka-green);">12</div><div class="mk-sub">Metro Manila cities</div></div>
+                <div class="mk-card" style="padding:10px; text-align:center;"><div class="mk-h" style="color:var(--ka-green);">3</div><div class="mk-sub">ways to join</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="notes">
+          <div class="note"><b>Mission first.</b> The challenge counter is real — it reads the same number the CEO sees in the admin console.</div>
+          <div class="note"><b>Three audiences, three cards.</b> Institutional · Hub &amp; Spoke · Direct-to-Consumer, each with its own "everyone wins" pitch and call to action.</div>
+          <div class="note sys">Counter served by <code>GET /impact/challenge</code> — the same endpoint the SDG report uses.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-arrow"><span class="line"></span><span class="txt">visitor clicks “Get started” →</span></div>
+
+    <div class="specimen reveal">
+      <div class="specimen-head">
+        <span class="step">1.2</span>
+        <h3>Sign in — one login, role-aware</h3>
+      </div>
+      <div class="specimen-grid flip">
+        <div class="notes">
+          <div class="note"><b>One identity system</b> for every facet. The role on the account decides where you land: admins → console, store owners → store facet, ops staff → ops facet.</div>
+          <div class="note"><b>15-minute access tokens</b> with silent refresh — field staff never get logged out mid-delivery.</div>
+          <div class="note sys"><code>POST /auth/login</code> → JWT pair. Web stores them as httpOnly cookies; mobile in the device keychain.</div>
+        </div>
+        <div class="frame-col">
+          <div class="browser">
+            <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">refillka.ph/login</span></div>
+            <div class="browser-body" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+              <div class="mk-banner blue" style="display:flex; flex-direction:column; justify-content:center; text-align:center; min-height:170px;">
+                <div class="mk-h" style="color:#fff; font-size:18px;">Welcome <em style="color:var(--sun);">back.</em></div>
+                <div style="font-size:8.5px; opacity:0.75; margin-top:6px;">Every refill brings us closer to 1 billion plastics avoided.</div>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:8px; justify-content:center;">
+                <div class="mk-field">✉ &nbsp;<b>you@refillka.ph</b></div>
+                <div class="mk-field">🔑 &nbsp;••••••••</div>
+                <span class="mk-btn">→ Log in</span>
+                <div class="mk-sub" style="text-align:center;">role decides the destination</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 02 · ADMIN ============================ -->
+  <section class="leg red" id="admin">
+    <span class="leg-stop">02</span>
+    <p class="leg-label">Stop 02 · Headquarters</p>
+    <h2>The admin console runs the day in <em>one screen.</em></h2>
+    <p class="intro">
+      Built for the founder and city admins. The morning ritual: open <strong>Daily Ops</strong>,
+      see what needs doing, act without leaving the page.
+    </p>
+    <div class="persona-row">
+      <span class="persona">👤 <b>Super Admin</b> · everything</span>
+      <span class="persona">🏙 City Admin · own city</span>
+    </div>
+
+    <div class="specimen reveal">
+      <div class="specimen-head">
+        <span class="step">2.1</span>
+        <h3>Daily Ops — today at a glance</h3>
+        <span class="hand-note">the morning ritual</span>
+      </div>
+      <div class="specimen-grid">
+        <div class="frame-col">
+          <div class="browser">
+            <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">admin.refillka.ph — Daily Operations</span></div>
+            <div class="browser-body" style="display:flex; flex-direction:column; gap:10px;">
+              <div class="mk-banner dark">
+                <div class="k">Today at a glance — all cities combined</div>
+                <div class="mk-stats">
+                  <div class="mk-stat"><div class="n">3</div><div class="l">Pending orders to deliver</div></div>
+                  <div class="mk-stat"><div class="n coral">2</div><div class="l">Restock requests · 1 critical</div></div>
+                  <div class="mk-stat"><div class="n mint">1</div><div class="l">New signups today</div></div>
+                  <div class="mk-stat"><div class="n coral">3</div><div class="l">At-risk flags · act now</div></div>
+                </div>
+              </div>
+              <div class="mk-card">
+                <div class="mk-card-h">Pending Orders to Deliver <span class="mk-pill y">3 pending</span></div>
+                <div class="mk-line hot"><span class="who">ORD-0001 <small>DTC · Brgy. Ususan · 20 gal</small></span><span class="mk-pill r">urgent</span><span class="val" style="color:var(--re-blue);">Confirm →</span></div>
+                <div class="mk-line warm"><span class="who">ORD-0002 <small>Institutional · Fort Bonifacio</small></span><span class="mk-pill y">pending</span><span class="val" style="color:var(--re-blue);">Confirm →</span></div>
+                <div class="mk-line warm"><span class="who">ORD-0003 <small>H&amp;S · spoke supply via CENRO hub</small></span><span class="mk-pill y">pending</span><span class="val" style="color:var(--re-blue);">Confirm →</span></div>
+              </div>
+              <div class="mk-card">
+                <div class="mk-card-h">Restock Requests <span class="mk-pill r">1 critical</span></div>
+                <div class="mk-line hot"><span class="who">Taguig CENRO <small>Dishwashing liquid · stock 8 L</small></span><span class="val">50 L</span><span class="val r">Approve →</span></div>
+                <div class="mk-line"><span class="who">Barangay Hall — Ligid-Tipas <small>Shampoo · stock 12 L</small></span><span class="val">30 L</span><span class="val" style="color:var(--re-blue);">Approve →</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="notes">
+          <div class="note"><b>Everything actionable inline.</b> Confirm an order, approve a restock, resolve a risk flag — buttons mutate the live system and the page refreshes itself.</div>
+          <div class="note"><b>Color is status.</b> Red rows are urgent, yellow pending, green live — the same grammar on every screen of every facet.</div>
+          <div class="note sys">Aggregates from <code>GET /dashboard/daily</code>; actions hit <code>PATCH /orders/:id/status</code> and <code>POST /restock-requests/:id/approve</code>.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-arrow"><span class="line"></span><span class="txt">zoom out →</span></div>
+
+    <div class="specimen reveal">
+      <div class="specimen-head">
+        <span class="step">2.2</span>
+        <h3>Nationwide — mission progress &amp; the network</h3>
+      </div>
+      <div class="specimen-grid flip">
+        <div class="notes">
+          <div class="note"><b>The 1B Challenge bar</b> sits on top of everything — yellow on blue, percent of goal to four decimals, because early numbers deserve precision.</div>
+          <div class="note"><b>City-by-city table</b> drills into any city; Marikina shows its pullout-risk flag right in the row.</div>
+          <div class="note sys"><code>GET /dashboard/nationwide</code> — challenge, network counts, revenue, per-city rollups, open action items.</div>
+        </div>
+        <div class="frame-col">
+          <div class="browser">
+            <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">admin.refillka.ph — Nationwide</span></div>
+            <div class="browser-body" style="display:flex; flex-direction:column; gap:10px;">
+              <div class="mk-banner blue">
+                <div class="k">The 1 Billion Challenge — mission progress</div>
+                <div style="font-family:var(--serif); font-size:13px; margin-bottom:8px;">1 billion plastics avoided — <em style="color:var(--sun);">every year</em> — by 2030.</div>
+                <div class="mk-progress" style="background:rgba(0,0,0,0.25);"><i style="width:3%;"></i></div>
+                <div class="mk-row" style="font-size:8px; opacity:0.7; margin-top:5px;"><span>4,275 avoided to date</span><span>0.0004% of annual goal</span></div>
+              </div>
+              <div class="mk-card">
+                <div class="mk-card-h">City-by-City Breakdown</div>
+                <div class="mk-line"><span class="who">Taguig City <small>Pilot · 3 of 38 barangays</small></span><span class="val g">4,275</span><span class="mk-pill y">pilot</span></div>
+                <div class="mk-line"><span class="who">Quezon City <small>680+ legacy stores</small></span><span class="val muted">—</span><span class="mk-pill g">active</span></div>
+                <div class="mk-line"><span class="who">Caloocan <small>420+ legacy stores</small></span><span class="val muted">—</span><span class="mk-pill g">active</span></div>
+                <div class="mk-line hot"><span class="who">Marikina <small>⚠ pullout risk — funding gap</small></span><span class="val muted">—</span><span class="mk-pill r">at risk</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow-arrow"><span class="line"></span><span class="txt">drill into Taguig →</span></div>
+
+    <div class="specimen reveal">
+      <div class="specimen-head">
+        <span class="step">2.3</span>
+        <h3>City view — waste baselines meet live impact</h3>
+      </div>
+      <div class="specimen-grid">
+        <div class="frame-col">
+          <div class="browser">
+            <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">admin.refillka.ph — Taguig City</span></div>
+            <div class="browser-body" style="display:flex; flex-direction:column; gap:10px;">
+              <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px;">
+                <div class="mk-card" style="padding:9px;"><div class="mk-h" style="font-size:13px;">1.31M</div><div class="mk-sub">population</div></div>
+                <div class="mk-card" style="padding:9px;"><div class="mk-h" style="font-size:13px;">38</div><div class="mk-sub">barangays · 3 piloting</div></div>
+                <div class="mk-card" style="padding:9px;"><div class="mk-h" style="font-size:13px;">214.6M kg</div><div class="mk-sub">waste / year</div></div>
+                <div class="mk-card" style="padding:9px;"><div class="mk-h" style="font-size:13px; color:var(--fill-red);">0.05%</div><div class="mk-sub">diverted vs 80% target</div></div>
+              </div>
+              <div class="mk-card">
+                <div class="mk-card-h">Barangays</div>
+                <div class="mk-line live"><span class="who">Western Bicutan <small>1 live spoke · hub: Taguig CENRO</small></span><span class="mk-pill g">1 live</span></div>
+                <div class="mk-line"><span class="who">Ligid-Tipas <small>3 spokes · hub: Barangay Hall · diversion 3.06%</small></span><span class="mk-pill y">pilot</span></div>
+                <div class="mk-line"><span class="who">Ibayo-Tipas <small>6 spokes · hub: Taguig CENRO · diversion 3.09%</small></span><span class="mk-pill y">pilot</span></div>
+                <div class="mk-line"><span class="who">Ususan <small>DTC household active · no hub yet</small></span><span class="mk-pill b">DTC active</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="notes">
+          <div class="note"><b>Official baselines, live overlay.</b> City waste profiles and barangay diversion rates sit beside refillka's real-time contribution — the gap to the 80% LGU target is the pitch to every mayor.</div>
+          <div class="note"><b>Barangay cards</b> use the same statuses as the field: pilot, live, DTC-active, institutional-only, unmapped.</div>
+          <div class="note sys"><code>GET /cities/:id</code> + <code>GET /impact/by-barangay?cityId=…</code></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 03 · STORE APP ============================ -->
+  <section class="leg green" id="store">
+    <span class="leg-stop">03</span>
+    <p class="leg-label">Stop 03 · The sari-sari counter</p>
+    <h2>The store owner app turns tingi culture <em>circular.</em></h2>
+    <p class="intro">
+      Same app as operations, different door. A store owner — say the live reseller in
+      Western Bicutan — signs in and gets five tabs built around one moment: a neighbor
+      walks in with an empty bottle.
+    </p>
+    <div class="persona-row">
+      <span class="persona">🏪 <b>Store owner</b> · spoke / reseller</span>
+      <span class="persona">📱 iOS &amp; Android</span>
+    </div>
+
+    <div class="specimen reveal">
+      <div class="specimen-head">
+        <span class="step">3.1</span>
+        <h3>Home → Log a refill → Celebrate</h3>
+        <span class="hand-note">the heartbeat of the whole platform</span>
+      </div>
+      <div class="phones">
+        <div>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-body">
+              <div class="mk-row"><span class="wordmark" style="font-size:13px;"><span class="re">re</span><span class="fill">fill</span><span class="ka">ka</span></span><span class="mk-pill g">live</span></div>
+              <div class="mk-card" style="padding:10px;">
+                <div class="mk-h" style="font-size:13px;">Aling Rosa’s Store</div>
+                <div class="mk-sub">Western Bicutan · Hub: Taguig CENRO</div>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <div class="mk-card" style="padding:9px;"><div class="mk-h" style="color:var(--ka-green);">2</div><div class="mk-sub">refills today</div></div>
+                <div class="mk-card" style="padding:9px;"><div class="mk-h">₱540</div><div class="mk-sub">earnings today</div></div>
+                <div class="mk-card" style="padding:9px;"><div class="mk-h" style="color:var(--teal);">183</div><div class="mk-sub">sachets avoided today</div></div>
+                <div class="mk-card" style="padding:9px;"><div class="mk-h" style="color:var(--teal);">183</div><div class="mk-sub">all-time</div></div>
+              </div>
+              <span class="mk-btn">+ Log refill</span>
+              <div class="mk-card" style="padding:8px;"><div class="mk-line" style="border:none; padding:0;"><span class="who" style="font-size:8.5px;">⚠ Dishwashing Liquid</span><span class="val r" style="font-size:8.5px;">4 L left — restock</span></div></div>
+              <div class="phone-tabs"><span class="on">Home</span><span>Refill</span><span>Inventory</span><span>Restock</span><span>Impact</span></div>
+            </div>
+          </div>
+          <p class="phone-caption">home — today at the counter</p>
+        </div>
+        <div>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-body">
+              <div class="mk-h" style="font-size:14px;">Log a refill sale</div>
+              <div class="mk-field"><b>Dishwashing Liquid</b> · ₱95/L ▾</div>
+              <div class="mk-field">Volume: <b>2</b> L</div>
+              <div class="mk-field">Amount: <b>₱190</b> <span style="color:var(--ink-faint);">(suggested)</span></div>
+              <div class="mk-glow">🌱 This refill avoids ≈ <b>&nbsp;100 sachets</b></div>
+              <span class="mk-btn">Record refill</span>
+              <div class="mk-sub" style="text-align:center;">preview math = server math:<br/>volume × 1000 ÷ sachet-mL</div>
+              <div class="phone-tabs"><span>Home</span><span class="on">Refill</span><span>Inventory</span><span>Restock</span><span>Impact</span></div>
+            </div>
+          </div>
+          <p class="phone-caption">refill — live sachet preview</p>
+        </div>
+        <div>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-body">
+              <div class="mk-banner teal" style="text-align:left;">
+                <div class="k">Your impact</div>
+                <div style="font-family:var(--serif); font-size:24px; color:var(--sun); line-height:1;">183</div>
+                <div style="font-size:8.5px; opacity:0.8; margin-top:3px;">single-use sachets avoided</div>
+                <div class="mk-progress" style="background:rgba(0,0,0,0.25); margin-top:8px;"><i style="width:2%;"></i></div>
+                <div style="font-size:7.5px; opacity:0.7; margin-top:4px;">your share of the 1 Billion Challenge</div>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <div class="mk-card" style="padding:9px;"><div class="mk-h" style="font-size:12px; color:var(--teal);">0.4 kg</div><div class="mk-sub">plastic avoided</div></div>
+                <div class="mk-card" style="padding:9px;"><div class="mk-h" style="font-size:12px; color:var(--ka-green);">2.2 kg</div><div class="mk-sub">CO₂e avoided</div></div>
+                <div class="mk-card" style="padding:9px;"><div class="mk-h" style="font-size:12px; color:var(--re-blue);">0.1 kg</div><div class="mk-sub">ocean-bound avoided</div></div>
+                <div class="mk-card" style="padding:9px;"><div class="mk-h" style="font-size:12px;">₱540</div><div class="mk-sub">refill earnings</div></div>
+              </div>
+              <div class="phone-tabs"><span>Home</span><span>Refill</span><span>Inventory</span><span>Restock</span><span class="on">Impact</span></div>
+            </div>
+          </div>
+          <p class="phone-caption">impact — pride + pesos</p>
+        </div>
+      </div>
+      <div class="notes" style="margin-top:22px;">
+        <div class="note"><b>Recording a sale takes three taps.</b> The price auto-fills from the catalog; the sachet preview makes the environmental win visible <i>before</i> the sale is saved.</div>
+        <div class="note sys"><code>POST /me/refills</code> → server computes sachets avoided, decrements shelf stock, credits earnings — and the number flows up to every dashboard.</div>
+      </div>
+    </div>
+
+    <div class="flow-arrow"><span class="line"></span><span class="txt">shelf runs low →</span></div>
+
+    <div class="specimen reveal">
+      <div class="specimen-head">
+        <span class="step">3.2</span>
+        <h3>Restock — ask your hub, track the answer</h3>
+      </div>
+      <div class="specimen-grid flip">
+        <div class="notes">
+          <div class="note"><b>Three-level priority</b> (low / normal / critical) — critical requests jump to the top of the ops queue and turn the admin dashboard red.</div>
+          <div class="note"><b>The request carries context:</b> stock level at the moment of asking, so approvers see exactly how urgent it is.</div>
+          <div class="note sys"><code>POST /me/restock-requests</code> → appears in the ops app and admin console instantly. Fulfillment moves liters hub-tank → store-shelf.</div>
+        </div>
+        <div class="frame-col">
+          <div class="phones">
+            <div>
+              <div class="phone">
+                <div class="phone-notch"></div>
+                <div class="phone-body">
+                  <div class="mk-h" style="font-size:14px;">Request supply</div>
+                  <div class="mk-field"><b>Dishwashing Liquid</b> ▾</div>
+                  <div class="mk-field">Liters needed: <b>30</b></div>
+                  <div style="display:flex; gap:6px;">
+                    <span class="mk-pill y" style="flex:1; text-align:center;">low</span>
+                    <span class="mk-pill g" style="flex:1; text-align:center;">normal</span>
+                    <span class="mk-pill r" style="flex:1; text-align:center; outline:2px solid var(--fill-red);">critical</span>
+                  </div>
+                  <span class="mk-btn blue">Send request</span>
+                  <div class="mk-card">
+                    <div class="mk-card-h" style="font-size:9px;">Your requests</div>
+                    <div class="mk-line"><span class="who" style="font-size:8.5px;">Shampoo · 20 L</span><span class="mk-pill g">fulfilled</span></div>
+                    <div class="mk-line"><span class="who" style="font-size:8.5px;">Dishwashing · 30 L</span><span class="mk-pill y">pending</span></div>
+                  </div>
+                  <div class="phone-tabs"><span>Home</span><span>Refill</span><span>Inventory</span><span class="on">Restock</span><span>Impact</span></div>
+                </div>
+              </div>
+              <p class="phone-caption">restock — the supply loop</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 04 · OPS APP ============================ -->
+  <section class="leg teal" id="ops">
+    <span class="leg-stop">04</span>
+    <p class="leg-label">Stop 04 · On the road</p>
+    <h2>The operations facet keeps the network <em>moving.</em></h2>
+    <p class="intro">
+      Same app, ops login. The field team's day: check the snapshot, run deliveries, decide
+      restocks, onboard new spokes, resolve risks — all from a phone, all hitting the same API
+      the console uses.
+    </p>
+    <div class="persona-row">
+      <span class="persona">🚚 <b>Operations staff</b></span>
+      <span class="persona">🛠 Admins (fallback)</span>
+    </div>
+
+    <div class="specimen reveal">
+      <div class="specimen-head">
+        <span class="step">4.1</span>
+        <h3>Today → Deliveries → Delivered</h3>
+        <span class="hand-note">where impact gets recorded</span>
+      </div>
+      <div class="phones">
+        <div>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-body">
+              <div class="mk-banner dark">
+                <div class="k">Today at a glance</div>
+                <div class="mk-stats x2">
+                  <div class="mk-stat"><div class="n">4,275</div><div class="l">plastics avoided (all time)</div></div>
+                  <div class="mk-stat"><div class="n white">₱540</div><div class="l">revenue today</div></div>
+                </div>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <div class="mk-card" style="padding:9px;"><div class="mk-h" style="color:var(--sun-deep);">3</div><div class="mk-sub">pending deliveries</div></div>
+                <div class="mk-card" style="padding:9px;"><div class="mk-h" style="color:var(--fill-red);">2</div><div class="mk-sub">restocks · 1 critical</div></div>
+                <div class="mk-card" style="padding:9px;"><div class="mk-h" style="color:var(--ka-green);">1</div><div class="mk-sub">new signup</div></div>
+                <div class="mk-card" style="padding:9px;"><div class="mk-h" style="color:var(--fill-red);">3</div><div class="mk-sub">open risk flags</div></div>
+              </div>
+              <div class="phone-tabs"><span class="on">Today</span><span>Deliveries</span><span>Restocks</span><span>Stores</span><span>Risk</span></div>
+            </div>
+          </div>
+          <p class="phone-caption">today — the field snapshot</p>
+        </div>
+        <div>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-body">
+              <div class="mk-h" style="font-size:14px;">ORD-0001 <span class="mk-pill r">urgent</span> <span class="mk-pill r" style="background:var(--red-wash);">DTC</span></div>
+              <div class="mk-sub">Household · Tower 1 Grace Residences, Brgy. Ususan</div>
+              <div class="mk-card">
+                <div class="mk-line"><span class="who" style="font-size:8.5px;">Dishwashing Liquid</span><span class="val" style="font-size:8.5px;">75.7 L · ₱7,192</span></div>
+                <div class="mk-line"><span class="who" style="font-size:8.5px;">Fulfilling hub</span><span class="val" style="font-size:8.5px;">Corporate Account</span></div>
+              </div>
+              <span class="mk-btn blue">▶ Start delivery</span>
+              <span class="mk-btn">✓ Mark delivered</span>
+              <div class="mk-sub" style="text-align:center;">delivered = stock moves +<br/>impact recorded, once</div>
+              <div class="phone-tabs"><span>Today</span><span class="on">Deliveries</span><span>Restocks</span><span>Stores</span><span>Risk</span></div>
+            </div>
+          </div>
+          <p class="phone-caption">delivery — scheduled → in&nbsp;transit → done</p>
+        </div>
+        <div>
+          <div class="phone">
+            <div class="phone-notch"></div>
+            <div class="phone-body">
+              <div class="mk-h" style="font-size:14px;">Restocks</div>
+              <div class="mk-card">
+                <div class="mk-card-h" style="font-size:9px;">Pending decisions <span class="mk-pill r">1 critical</span></div>
+                <div class="mk-line hot"><span class="who" style="font-size:8.5px;">Taguig CENRO <small>Dishwashing · 50 L · stock 8 L</small></span><span class="mk-pill r">critical</span></div>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <span class="mk-btn" style="flex:1;">Approve</span>
+                <span class="mk-btn outline" style="flex:1;">Reject</span>
+              </div>
+              <div class="mk-card">
+                <div class="mk-card-h" style="font-size:9px;">Approved — awaiting supply</div>
+                <div class="mk-line"><span class="who" style="font-size:8.5px;">Barangay Hall · Shampoo · 30 L</span><span class="val" style="font-size:8.5px; color:var(--re-blue);">Fulfill →</span></div>
+              </div>
+              <div class="phone-tabs"><span>Today</span><span>Deliveries</span><span class="on">Restocks</span><span>Stores</span><span>Risk</span></div>
+            </div>
+          </div>
+          <p class="phone-caption">restocks — approve, fulfill, stock moves</p>
+        </div>
+      </div>
+      <div class="notes" style="margin-top:22px;">
+        <div class="note"><b>“Mark delivered” is the platform's most powerful button.</b> One confirmed tap completes the order, moves liters out of the hub tank, and writes the impact event — DTC and institutional deliveries count their sachets right there.</div>
+        <div class="note"><b>Onboarding lives here too:</b> a floating button on the Stores tab opens the new-spoke form; go-live is a single action once training is done.</div>
+        <div class="note sys"><code>PATCH /deliveries/:id → DELIVERED</code> runs in one transaction: order + inventory + refill events + audit log.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 05 · IMPACT ============================ -->
+  <section class="leg teal" id="impact">
+    <span class="leg-stop">05</span>
+    <p class="leg-label">Stop 05 · The receipts</p>
+    <h2>Impact reporting that maps to the <em>UN SDGs.</em></h2>
+    <p class="intro">
+      A dedicated reporting service turns every refill into evidence: six Sustainable
+      Development Goals, Philippines-context narratives, and a CSV export for LGU and
+      funder reporting.
+    </p>
+
+    <div class="specimen reveal">
+      <div class="specimen-head">
+        <span class="step">5.1</span>
+        <h3>The SDG report — six goals, one counter</h3>
+      </div>
+      <div class="specimen-grid">
+        <div class="frame-col">
+          <div class="browser">
+            <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">admin.refillka.ph — Impact &amp; UN SDG Report</span></div>
+            <div class="browser-body" style="display:flex; flex-direction:column; gap:10px;">
+              <div class="mk-banner teal">
+                <div class="k">The 1 Billion Challenge</div>
+                <div style="font-family:var(--serif); font-size:13px;">Prevent <em style="color:var(--sun);">1 billion</em> single-use plastics — every year — by 2030.</div>
+                <div class="mk-progress" style="background:rgba(0,0,0,0.25); margin-top:8px;"><i style="width:3%;"></i></div>
+              </div>
+              <div class="mk-sdg">
+                <div class="tile" style="background:#bf8b2e;"><b>12</b>Responsible Consumption — 4,275 sachets avoided</div>
+                <div class="tile" style="background:#0a97d9;"><b>14</b>Life Below Water — 1.7 kg ocean-bound avoided</div>
+                <div class="tile" style="background:#3f7e44;"><b>13</b>Climate Action — 51 kg CO₂e avoided</div>
+                <div class="tile" style="background:#fd9d24;"><b>11</b>Sustainable Cities — 6 barangays with refill access</div>
+                <div class="tile" style="background:#a21942;"><b>8</b>Decent Work — 10 sari-sari livelihoods</div>
+                <div class="tile" style="background:#19486a;"><b>17</b>Partnerships — 5 institutional partners</div>
+              </div>
+              <span class="mk-btn" style="background:var(--teal);">↓ Download CSV report</span>
+            </div>
+          </div>
+        </div>
+        <div class="notes">
+          <div class="note"><b>Documented math, no hand-waving.</b> 2 g plastic per sachet · 6 kg CO₂e per kg of flexible plastic · 20% ocean-leakage share — constants live in one file, cited in the report.</div>
+          <div class="note"><b>Built for the people who ask for receipts:</b> LGUs chasing 80% diversion targets, EPR-obligated brands, grant funders.</div>
+          <div class="note sys">Served by the separate <code>impact-api</code> — reporting load can never slow down order-taking.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ 06 · UNDER THE HOOD ============================ -->
+  <section class="leg" id="hood">
+    <span class="leg-stop">06</span>
+    <p class="leg-label">Stop 06 · Under the hood</p>
+    <h2>Three repos. Two services. <em>One truth.</em></h2>
+    <p class="intro">
+      Sized for a small team: the fewest codebases that still scale. Every number on every
+      screen above traces back to one PostgreSQL database through one versioned API contract.
+    </p>
+    <div class="map-grid reveal">
+      <div class="map-node">
+        <p class="tag" style="color:var(--teal);">refillka-api</p>
+        <h3>NestJS monorepo</h3>
+        <p><b>core-api</b> (:4000) — auth, orders, deliveries, inventory, restocks, refills,
+        partners, risk. <b>impact-api</b> (:4100) — SDG &amp; challenge reporting. Shared Prisma
+        schema + Postgres.</p>
+      </div>
+      <div class="map-node">
+        <p class="tag" style="color:var(--fill-red);">refillka-admin</p>
+        <h3>Next.js console</h3>
+        <p>Server-rendered dashboards, inline server actions, httpOnly-cookie JWT auth with
+        silent refresh. No direct database access — APIs only.</p>
+      </div>
+      <div class="map-node">
+        <p class="tag" style="color:var(--ka-green);">refillka-mobile</p>
+        <h3>One Flutter app</h3>
+        <p>Two role-based facets, iOS + Android, Riverpod + dio with token refresh. Talks to
+        core-api only — the field never needs the reporting service.</p>
+      </div>
+    </div>
+    <p class="map-spine reveal">a refill logged at a counter in Western Bicutan → <b>core-api</b> → Postgres → CEO dashboard, SDG report, and the 1B counter. <b>Same number, everywhere.</b></p>
+  </section>
+
+</main>
+
+<footer>
+  <span class="wordmark"><span class="re">re</span><span class="fill">fill</span><span class="ka">ka</span></span>
+  <p>refillka is designed, built, and operated by <strong>ReCirca Management Corp</strong> —
+  sustainability architecture, by design. Names shown in mockups are illustrative.</p>
+</footer>
+
+<script src="assets/reveal.js" defer></script>
+</body>
+</html>

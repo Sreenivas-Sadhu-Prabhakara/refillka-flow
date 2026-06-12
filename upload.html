@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>refillka — Data Intake (authorized staff)</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🔒</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Sora:wght@300;400;600;700&family=Caveat:wght@500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/site.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <span class="wordmark"><span class="re">re</span><span class="fill">fill</span><span class="ka">ka</span></span>
+  <nav><a href="index.html">← Product flow</a></nav>
+</header>
+
+<div class="intake-wrap">
+  <p class="gatekeeper">🔒 authorized staff only — submissions land in a private repository</p>
+
+  <!-- STEP 1: connect -->
+  <section class="intake-card" id="auth-card">
+    <h2>Data intake</h2>
+    <p class="sub">
+      Upload pilot details — store signups, waste baselines, partner leads, impact figures,
+      photos, spreadsheets. Submissions are committed to the <strong>private</strong>
+      <code style="font-family:ui-monospace,Menlo,monospace; font-size:12px;">refillka-uploads</code>
+      repository. Only the 1–2 people granted write access there can submit; everyone else is
+      refused by GitHub itself.
+    </p>
+
+    <div id="connect-block">
+      <label for="token">GitHub access token</label>
+      <input type="password" id="token" placeholder="github_pat_…" autocomplete="off" />
+      <div style="display:flex; align-items:center; gap:8px; margin-top:10px;">
+        <input type="checkbox" id="remember" style="width:15px; height:15px; accent-color: var(--teal);" />
+        <label for="remember" style="margin:0; text-transform:none; letter-spacing:0; font-size:12.5px; font-weight:400; color:var(--ink-soft);">Remember on this device</label>
+      </div>
+      <div style="margin-top:16px;">
+        <button class="btn teal" id="connect-btn">Connect</button>
+      </div>
+      <div class="msg info" style="margin-top:16px;">
+        <b>Getting a token (one minute):</b> GitHub → Settings → Developer settings →
+        Fine-grained personal access tokens → Generate new token → Repository access:
+        <i>only</i> <b>refillka-uploads</b> → Permissions: <b>Contents — Read &amp; write</b>.
+        The token never leaves your browser except to talk to GitHub.
+      </div>
+      <div id="auth-msg"></div>
+    </div>
+
+    <div id="identity-block" style="display:none;">
+      <div class="identity">
+        <img id="who-avatar" alt="" />
+        <div class="who"><span id="who-name"></span><small id="who-login"></small></div>
+        <button class="btn ghost" id="disconnect-btn" style="width:auto; margin-left:auto; padding:8px 16px;">Disconnect</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2: submit -->
+  <section class="intake-card" id="form-card" style="display:none;">
+    <h2>New submission</h2>
+    <p class="sub">Each submission becomes a dated folder with your details and any attached files.</p>
+
+    <label for="category">Category</label>
+    <select id="category">
+      <option value="store-signup">Store signup / spoke details</option>
+      <option value="waste-baseline">Barangay waste baseline data</option>
+      <option value="partner-lead">Institutional partner lead</option>
+      <option value="impact-data">Impact / refill figures</option>
+      <option value="hub-update">Hub / inventory update</option>
+      <option value="other">Other</option>
+    </select>
+
+    <label for="title">Title</label>
+    <input type="text" id="title" placeholder="e.g. Western Bicutan — March store signups" maxlength="120" />
+
+    <label for="details">Details</label>
+    <textarea id="details" placeholder="Names, figures, addresses, notes — whatever needs to reach HQ. This goes into the private repo only."></textarea>
+
+    <label for="files">Attachments (optional · up to 5 files · 3 MB each)</label>
+    <input type="file" id="files" multiple style="font-size:13px;" />
+    <ul class="filelist" id="filelist"></ul>
+
+    <div style="margin-top:22px;">
+      <button class="btn" id="submit-btn">Submit to private repo</button>
+    </div>
+    <div id="submit-msg"></div>
+  </section>
+
+  <!-- STEP 3: recent -->
+  <section class="intake-card" id="recent-card" style="display:none;">
+    <h2>Recent submissions</h2>
+    <p class="sub">Latest entries in the private inbox — visible only to authorized people.</p>
+    <ul class="recent" id="recent-list"></ul>
+  </section>
+</div>
+
+<footer>
+  <span class="wordmark"><span class="re">re</span><span class="fill">fill</span><span class="ka">ka</span></span>
+  <p>Access is enforced by GitHub repository permissions, not by this page. Tokens are used
+  directly against api.github.com and are never sent anywhere else.</p>
+</footer>
+
+<script src="assets/upload.js" defer></script>
+</body>
+</html>
